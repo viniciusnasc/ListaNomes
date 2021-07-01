@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ListaNomes
 {
@@ -85,10 +82,10 @@ namespace ListaNomes
             Console.Clear();
             Console.WriteLine("Nomes cadastrados no sistema:");
 
-            if(lista.Count == 0)
+            if (lista.Count == 0)
                 Console.WriteLine("Nenhum nome cadastrado!");
 
-            foreach(string obj in lista)
+            foreach (string obj in lista)
                 Console.WriteLine(obj);
 
             Console.WriteLine();
