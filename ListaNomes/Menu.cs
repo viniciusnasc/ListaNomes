@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ListaNomes
 {
@@ -20,15 +21,24 @@ namespace ListaNomes
         public static void Incluir(List<string> lista)
         {
             Console.Clear();
+
             Console.WriteLine("INCLUSÃO DE NOMES: ");
             Console.Write("Digite o nome que deseja incluir(não é valido nomes repetidos): ");
-            string nome = Console.ReadLine();
+            string nome = Console.ReadLine().Trim();// Trim = retira espaços antes e depois do texto
 
-            string nomeAlt = nome.ToUpper();
-            string nomeLow = nome.ToLower();
-            string nomeFL = char.ToUpper(nome[0]) + nome.Substring(1);
+            // Utilizei regex para retirar espaços extras em nome compostos
+            Regex regex = new("[ ]{2,}"); // Encontra na string dois ou mais espaços
+            nome = regex.Replace(nome, " "); // Altera os espaços encontrados por apenas um
 
-            while (nome == "")
+            // Variaveis para impedir nomes duplicados com caixa alta, caixa baixa, ou primeira letra maiuscula, resto minuscula
+            string nomeAlt, nomeLow, nomeFL;
+            nomeAlt = nome.ToUpper();
+            nomeLow = nome.ToLower();
+            nomeFL = "";
+            if(nome.Length != 0)
+                nomeFL = char.ToUpper(nome[0]) + nome.Substring(1);
+
+            while (string.IsNullOrWhiteSpace(nome))
             {
                 Console.WriteLine("Não é permitido valor nulo!");
                 Console.Write("Digite um nome valido: ");
@@ -52,7 +62,7 @@ namespace ListaNomes
             string nome = Console.ReadLine();
 
             if (lista.Find(x => x == nome) == null)
-                Console.WriteLine("Nome não alterado!\n");
+                Console.WriteLine("Nome não encontrado!\n");
             else
             {
                 Console.Write("Digite a alteração que deseja fazer: ");
